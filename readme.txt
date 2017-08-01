@@ -2,9 +2,9 @@ Moodle Plugin - Auto Activate Quiz Attempt Button
 
 Background and Need ->
 
-1) In a quiz where the start time is crucial students tend to refresh the page every now and 
-then just to make sure if the attempt is available.
+1) In a quiz where the start time is crucial students tend to refresh the page every now and then just to make sure if the attempt is available.
 2) This unnecessarily increases the server load, if there are too many such ‘unwanted’ requests.
+
 
 Solution ->
 
