@@ -1,4 +1,4 @@
-Moodle Plugin-Auto Activate Quiz Attempt Button
+Moodle Plugin - Auto Activate Quiz Attempt Button
 
 Background and Need ->
 
@@ -24,7 +24,6 @@ Installation ->
 3) A notification will appear stating “Plugins requiring attention”.
 4) Complete the installation by clicking on “Upgrade Moodle database now”,click on continue after the success 
 notification appears on the page.
-
 
 Usage ->
 
