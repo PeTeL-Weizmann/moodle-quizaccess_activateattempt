@@ -64,30 +64,30 @@ class quizaccess_activateattempt extends quiz_access_rule_base {
 					   $(document).ready(function() {
         					
 						  $('.quizattempt').prepend(
-$('</br>'),
+						$('</br>'),
             					$('<form/>', {
                 					'method': 'post',
                 					'action': '$CFG->wwwroot/mod/quiz/startattempt.php'
             					}).append(
                 					$('<input>', {
                     					'type': 'hidden',
-                   					    'name': 'cmid',
+                   					'name': 'cmid',
                     					'value': $cm->id
                 					}),
                 					$('<input>', {
                    					    'type': 'hidden',
-                    					'name': 'sesskey',
+                    					    'name': 'sesskey',
                    					    'value': $sessionKeyJS
                					    }),
-									$('<input>', {
+							$('<input>', {
                    					    'type': 'submit',
-                    					'class': 'btn btn-secondary',
-										'id'   : 'startAttemptButton',
+                    					    'class': 'btn btn-secondary',
+							    'id'   : 'startAttemptButton',
                    					    'value': '$attemptquiz'
                					    }),
-									$('<p>', {
-										'id':'timer'
-									}) 
+							$('<p>', {
+							    'id':'timer'
+						   }) 
             					),
            						$('</br>')
        					 );
