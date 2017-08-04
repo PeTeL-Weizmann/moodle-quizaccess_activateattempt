@@ -19,6 +19,7 @@
  *
  * @package    quizaccess_activateattempt
  * @author     Amrata Ramchandani,<ramchandani.amrata@gmail.com>
+ * @copyright  2017, Indian Institute Of Technology,Bombay,India
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

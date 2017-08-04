@@ -19,6 +19,7 @@
  *
  * @package    quizaccess_activateattempt
  * @author     Amrata Ramchandani <ramchandani.amrata@gmail.com>
+ * @copyright  2017, Indian Institute Of Technology,Bombay,India
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -62,7 +63,8 @@ class quizaccess_activateattempt extends quiz_access_rule_base {
     					
 					   $(document).ready(function() {
         					
-						  $('.continuebutton').prepend(
+						  $('.quizattempt').prepend(
+$('</br>'),
             					$('<form/>', {
                 					'method': 'post',
                 					'action': '$CFG->wwwroot/mod/quiz/startattempt.php'
