@@ -6,7 +6,7 @@ define(['jquery'], function($) {
          */
 
         init: function(actionlink, cmid, sessionkey, attemptquiz, diffmillisecs, Strdays, Strday, Strhours, Strhour, Strminutes,
-            Strminute, quizwillstartinless, quizwillstartinabout) {
+            Strminute, quizwillstartinless, quizwillstartinabout, randomstartdelay) {
             $('.continuebutton').prepend(
                 $('</br>'),
                 $('<form/>', {
@@ -38,16 +38,17 @@ define(['jquery'], function($) {
 
             $('#startAttemptButton').hide();
             var quizOpenTime = new Date().getTime() + diffmillisecs;
+            var randomDelay = Math.floor(Math.random() * randomstartdelay) * 1000; // In seconds, to load balance the quiz start.
             var interval = setInterval(function() {
                 var currentTime = new Date().getTime();
-                var countDownTime = quizOpenTime - currentTime;
+                var countDownTime = quizOpenTime + randomDelay - currentTime;
 
                 var days = Math.floor(countDownTime / (1000 * 60 * 60 * 24));
                 var hours = Math.floor((countDownTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
                 var minutes = Math.floor((countDownTime % (1000 * 60 * 60)) / (1000 * 60));
 
-                var seconds = Math.floor((countDownTime % (1000 * 60)) / 1000);
+                //var seconds = Math.floor((countDownTime % (1000 * 60)) / 1000);
 
                 var daysLeft, hrsLeft, minsLeft;
 
@@ -84,8 +85,12 @@ define(['jquery'], function($) {
                     clearInterval(interval);
                     $('#timer').hide();
                     $('#startAttemptButton').show();
+                    // Hide "Back to course" button.
+                    $('.continuebutton form[method=get]').hide();
+                    // Hide "not available" message.
+                    $('.quizattempt .notavailable').hide();
                 }
             }, 1000);
         }
-    }
+    };
 });

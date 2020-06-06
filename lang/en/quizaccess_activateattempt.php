@@ -37,4 +37,6 @@ $string['hour'] = 'hour';
 $string['minutes'] = 'minutes';
 $string['minute'] = 'minute';
 $string['pluginname'] = 'Auto activate quiz attempt button access rule';
+$string['randomstartdelay'] = 'Start attempt, random delay';
+$string['randomstartdelay_help'] = 'Max limit of added random delay (in seconds) for each attempt start';
 

@@ -1,0 +1,7 @@
+.box.quizattempt {
+    text-align: center;
+    background: #e1cfff;
+    padding: 1em;
+    border-radius: 5px;
+    font-size: larger;
+}

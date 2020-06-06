@@ -26,8 +26,8 @@
 
 defined ( 'MOODLE_INTERNAL' ) || die ();
 
-$plugin->version = 2017093000;
+$plugin->version = 2017051502;
 $plugin->requires = 2017050500;
 $plugin->component = 'quizaccess_activateattempt';
 $plugin->maturity  = MATURITY_RC;
-$plugin->release   = '1.0.3';
+$plugin->release   = '1.0.4';

@@ -65,14 +65,65 @@ class quizaccess_activateattempt extends quiz_access_rule_base {
         $minutes = get_string ( 'minutes', 'quizaccess_activateattempt' );
         $minute = get_string ( 'minute', 'quizaccess_activateattempt' );
         $result = "";
+        // Added 0...45 seconds random delay (to load balance quiz start, for large amount of concurrent users)
+        // Set the following global on your config.php
+        //$CFG->randomquizstartdelay = 45;
+        $randomstartdelay = ($CFG->randomquizstartdelay) ?: 0;
+        // TODO: use $this->quiz->randomstartdelay
         if ($this->timenow < $this->quiz->timeopen) {
             $diff = ($this->quiz->timeopen) - ($this->timenow);
             $diffmillisecs = $diff * 1000;
             $result = $PAGE->requires->js_call_amd('quizaccess_activateattempt/timer', 'init',
                 array($actionlink, $cm->id, $sessionkey, $attemptquiz, $diffmillisecs, $days, $day, $hours, $hour, $minutes,
-                    $minute, $quizwillstartinless, $quizwillstartinabout));
+                    $minute, $quizwillstartinless, $quizwillstartinabout, $randomstartdelay));
         }
         return $result; // Used as a prevent message.
     }
+
+    // TODO: Following code is working but not used (yet)
+    public static function add_settings_form_fields(
+        mod_quiz_mod_form $quizform, MoodleQuickForm $mform) {
+        global $CFG;
+
+        // Max delay time in seconds
+        $mform->addElement('text', 'randomstartdelay',
+            get_string('randomstartdelay', 'quizaccess_activateattempt'), array('autofocus' => 'true'));
+        $mform->addHelpButton('randomstartdelay', 'randomstartdelay', 'quizaccess_activateattempt');
+        $mform->setDefault('randomstartdelay', ($CFG->randomquizstartdelay) ?: 0);
+        $mform->setAdvanced('randomstartdelay');
+    }
+
+    public static function save_settings($quiz) {
+        global $DB, $CFG;
+
+        if (empty($quiz->randomstartdelay)) {
+            $DB->delete_records('quizaccess_activateattempt', array('quizid' => $quiz->id));
+        } else {
+            $record = $DB->get_record('quizaccess_activateattempt', array('quizid' => $quiz->id));
+            if (!$record) {
+                $record = new stdClass();
+                $record->quizid = $quiz->id;
+                $record->randomstartdelay = $quiz->randomstartdelay; //($CFG->randomquizstartdelay) ?: 0;
+                $DB->insert_record('quizaccess_activateattempt', $record);
+            } else {
+                $record->randomstartdelay = $quiz->randomstartdelay;
+                $DB->update_record('quizaccess_activateattempt', $record);
+            }
+        }
+    }
+
+    public static function delete_settings($quiz) {
+        global $DB;
+        $DB->delete_records('quizaccess_activateattempt', array('quizid' => $quiz->id));
+    }
+
+    public static function get_settings_sql($quizid) {
+        return array(
+            'activateattempt.randomstartdelay AS randomstartdelay',
+            'LEFT JOIN {quizaccess_activateattempt} activateattempt ON activateattempt.quizid = quiz.id',
+            array());
+    }
+
+
 }
 
